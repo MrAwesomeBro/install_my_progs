@@ -6,7 +6,7 @@
 
 Just clone or copy this script to your debian machine and give it the needed rights:
 
-    git clone
+    git clone https://github.com/MrAwesomeBro/install_my_progs.git
     chmod +x install_my_progs.sh
     ./install_my_progs.sh
 
