@@ -31,7 +31,7 @@ deb-src http://security.debian.org/ wheezy/updates main contrib non-free
 progs="sudo vim less tar zip git"
 
 # Security programs:
-security_progs="# fail2ban logwatch apticron"
+security_progs="fail2ban logwatch apticron"
 
 # Webserver, database server and other stuff:
 web_db_progs="apache2 libapache2-mod-proxy-html libapache2-mod-php5 mysql-server mysql-client mysql-common php5 php5-mysql php5-gd freetype*"
@@ -74,22 +74,22 @@ apt-get install -y $progs
 
 # install security programs, you can also define more:
 echo ""
-echo -e "Installing security programs Fail2Ban, Logwatch and Apticron.."
+echo -e "Installing security programs $security_progs.."
 apt-get install -y $security_progs
 
 # install webserver, database server and much more
 echo ""
-echo -e "Installing Apache2, PHP and MySQL.."
+echo -e "Installing $web_db_progs.."
 apt-get install -y $web_db_progs
 
 # install mailserver
 echo ""
-echo -e "Installing mailserver Postfix.."
+echo -e "Installing mailserver $mail_serv.."
 apt-get install -y $mail_serv
 
 # install other programs
 # echo ""
-# echo -e "Installing other programs.."
+# echo -e "Installing other programs $other_progs.."
 # apt-get install -y $other_progs
 
 # Finishing..
