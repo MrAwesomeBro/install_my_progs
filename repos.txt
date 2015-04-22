@@ -1,0 +1,18 @@
+######### CUSTOM REPOS #########
+
+deb http://ftp.de.debian.org/debian stable main contrib non-free
+deb-src http://ftp.de.debian.org/debian stable main contrib non-free
+
+deb http://ftp.debian.org/debian/ wheezy-updates main contrib non-free
+deb-src http://ftp.debian.org/debian/ wheezy-updates main contrib non-free
+
+deb http://security.debian.org/ wheezy/updates main contrib non-free
+deb-src http://security.debian.org/ wheezy/updates main contrib non-free
+"
+# Define your wanted programs:
+
+helpers="sudo vim less tar zip git"
+security_progs="fail2ban logwatch apticron"
+web_and_db="apache2 libapache2-mod-proxy-html libapache2-mod-php5 mysql-server mysql-client mysql-common php5 php5-mysql php5-gd freetype*"
+
+######### END OF CUSTOM REPOS #########

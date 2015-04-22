@@ -6,16 +6,7 @@
 ### Modified 22.04.2015 ###
 
 # Define your needed/wanted repositories here:
-repos="
-deb http://ftp.de.debian.org/debian stable main contrib non-free
-deb-src http://ftp.de.debian.org/debian stable main contrib non-free
-
-deb http://ftp.debian.org/debian/ wheezy-updates main contrib non-free
-deb-src http://ftp.debian.org/debian/ wheezy-updates main contrib non-free
-
-deb http://security.debian.org/ wheezy/updates main contrib non-free
-deb-src http://security.debian.org/ wheezy/updates main contrib non-free
-"
+repos=`cat repos.txt`
 # Define your wanted programs:
 
 helpers="sudo vim less tar zip git"
