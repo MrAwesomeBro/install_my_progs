@@ -1,18 +1,12 @@
 #/bin/bash
 
 
-########################################################################
-
-### install_my_progs.sh ###
-### installs my needed programs on my debian server on initial login ###
+### installs my needed programs on my debian server ###
 ### 06.03.2015 ###
-
-########################################################################
+### Modified 22.04.2015 ###
 
 # Define your needed/wanted repositories here:
-#------------------------------------------------------------------------#
 repos="
-
 deb http://ftp.de.debian.org/debian stable main contrib non-free
 deb-src http://ftp.de.debian.org/debian stable main contrib non-free
 
@@ -21,28 +15,52 @@ deb-src http://ftp.debian.org/debian/ wheezy-updates main contrib non-free
 
 deb http://security.debian.org/ wheezy/updates main contrib non-free
 deb-src http://security.debian.org/ wheezy/updates main contrib non-free
-
 "
-#------------------------------------------------------------------------#
-
 # Define your wanted programs:
-#------------------------------------------------------------------------#
-# Standard programs which make the work easier:
-progs="sudo vim less tar zip git"
 
-# Security programs:
+helpers="sudo vim less tar zip git"
 security_progs="fail2ban logwatch apticron"
+web_and_db="apache2 libapache2-mod-proxy-html libapache2-mod-php5 mysql-server mysql-client mysql-common php5 php5-mysql php5-gd freetype*"
 
-# Webserver, database server and other stuff:
-web_db_progs="apache2 libapache2-mod-proxy-html libapache2-mod-php5 mysql-server mysql-client mysql-common php5 php5-mysql php5-gd freetype*"
+# Uncomment if you want to install a mailserver as well:
+# mail="postfix dovecot"
 
-# Mailserver:
-mail_serv="postfix"
+# Uncomment if you want to install other programs
+# other="nginx"
 
-# Other programs (need to uncomment lines 91-93:
-other_progs=" "
-#------------------------------------------------------------------------#
+# Define programs which you want to be removed
+crap=nano
 
+### FUNCTIONS ###
+
+little_helpers () {
+	echo "installing little helpers"
+		apt-get install $helpers;
+	echo "removing crap"
+		apt-get remove --purge $crap;
+}
+
+security () {
+	echo "installing security programs"
+		apt-get install $security_progs;
+}
+
+webserver () {
+	echo "installing webserver and database with php and modules"
+		apt-get install $web_and_db;
+}
+
+mailserver () {
+	echo "installing mail server"
+		apt-get install $mail;
+}
+
+others () {
+	echo "installing other programs"
+		apt-get install $other;
+
+}
+### END OF FUNCTIONS ###
 
 # check if the script is run by "root"
 if (( $EUID != 0 )); then
@@ -55,43 +73,21 @@ fi
 
 # clearing the sources.list && adding the official repos
 echo ""
-echo -e "Clearing /etc/apt/sources.list.."
-:>/etc/apt/sources.list
-
-echo ""
-echo -e "Filling in official repositories.."
-echo "$repos" >> /etc/apt/sources.list
+echo -e "Clearing /etc/apt/sources.list and filling in my repos"
+:>/etc/apt/sources.list && echo "$repos >> /etc/apt/sources.list"
 
 # perform an update to insert and use the new repos
 echo "" 
 echo -e "Performing an update to use the new repositories.."
 apt-get update -y
 
-# install the needed programs, you may define less or more here:
-echo ""
-echo -e "Installing my needed programs.."
-apt-get install -y $progs
+# Installing the Programs now
 
-# install security programs, you can also define more:
-echo ""
-echo -e "Installing security programs $security_progs.."
-apt-get install -y $security_progs
+little_helpers
+security
+webserver
+mailserver
+others
 
-# install webserver, database server and much more
-echo ""
-echo -e "Installing $web_db_progs.."
-apt-get install -y $web_db_progs
-
-# install mailserver
-echo ""
-echo -e "Installing mailserver $mail_serv.."
-apt-get install -y $mail_serv
-
-# install other programs
-# echo ""
-# echo -e "Installing other programs $other_progs.."
-# apt-get install -y $other_progs
-
-# Finishing..
-echo -e "All done. You can start the real work now.."
-exit
+# Finished_
+echo "Done. My needed programs have been installed successfully."
