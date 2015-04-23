@@ -65,7 +65,7 @@ fi
 # clearing the sources.list && adding the official repos
 echo ""
 echo -e "Clearing /etc/apt/sources.list and filling in my repos"
-:>/etc/apt/sources.list && echo "$repos >> /etc/apt/sources.list"
+:>/etc/apt/sources.list && echo "$repos" >> /etc/apt/sources.list
 
 # perform an update to insert and use the new repos
 echo "" 
